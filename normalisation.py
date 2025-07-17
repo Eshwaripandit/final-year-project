@@ -4,8 +4,8 @@ import os
 import numpy as np
 
 # Paths
-LANDMARKED_FRAMES_PATH = "D:\\LipReadingProject\\preprocessing\\landmark1"  # Input frames folder with landmarks
-OUTPUT_CROPPED_PATH = "D:\\LipReadingProject\\preprocessing\\normal-rgb"  # Path to save cropped, resized, and processed frames
+LANDMARKED_FRAMES_PATH = "D:\\LipReadingProject\\preprocessing\\speaker_5\\Land_5"  # Input frames folder with landmarks
+OUTPUT_CROPPED_PATH = "D:\\LipReadingProject\\preprocessing\\speaker_5\\Normalisation_5"  # Path to save cropped, resized, and processed frames
 
 # Create output directory if it doesn't exist
 os.makedirs(OUTPUT_CROPPED_PATH, exist_ok=True)
