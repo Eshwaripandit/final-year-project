@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Generation of Text from Lip Movements</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Full-Screen Background for Home Page */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #c8caf2, #e9eafb);
+            color: #000000;
+            display: flex;
+            flex-direction: column; /* Allow stacking of navbar and container */
+            align-items: center;
+            justify-content: flex-start; /* Align items to the start */
+            height: 100vh;
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #4e54c8; /* Navbar background color */
+            padding: 15px 20px; /* Spacing around navbar */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            position: fixed; /* Fix the navbar at the top */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Stretch to the right */
+            z-index: 1000; /* Ensure it is above other elements */
+        }
+        .navbar-container {
+            display: flex; /* Flex layout for navbar items */
+            align-items: center; /* Center items vertically */
+            max-width: 1200px; /* Max width of navbar */
+            margin: 0 auto; /* Center navbar */
+        }
+        .navbar-title {
+            color: white; /* Text color */
+            font-size: 24px; /* Font size for the title */
+            margin: 0; /* Remove margin */
+        }
+        /* Home container for full-screen display with padding on the sides */
+        .home-container {
+            width: 90vw;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 70px; /* Space for fixed navbar */
+        }
+        /* Heading and description text */
+        .home-container h1 {
+            font-size: 3em; /* Larger font size */
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .home-container p {
+            font-size: 1.5em; /* Increased font size */
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 20px 0 30px 0;
+        }
+        /* Button styling */
+        .upload-button, .logout-button {
+            padding: 14px 28px;
+            font-size: 1.2em;
+            margin: 15px;
+            color: #ffffff;
+            background-color: #4e54c8;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .upload-button:hover, .logout-button:hover {
+            background-color: #8f94fb;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <h1 class="navbar-title">Lip Reading Text Generator</h1>
+        </div>
+    </nav>    
+    <div class="home-container">
+        <h1>GENERATION OF TEXT FROM LIP MOVEMENTS!</h1>
+        <p>
+            This application leverages cutting-edge technology to convert lip movements into text. 
+            Our goal is to provide an accessible solution for individuals who are unable to use their voice, 
+            enabling them to communicate effectively through visual input.
+        </p>
+        <a href="login.html" class="logout-button">LOG IN</a>
+        <a href="signup.html" class="logout-button">SIGN UP</a>
+    </div>
+</body>
+</html>

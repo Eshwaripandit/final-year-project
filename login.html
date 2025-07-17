@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Generation of Text from Lip Movements</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        /* Center the main container vertically and horizontally */
+        body {
+            display: flex;
+            flex-direction: column; /* Allow stacking of navbar and main content */
+            align-items: center;
+            justify-content: flex-start; /* Align items to the start */
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #4e54c8; /* Navbar background color */
+            padding: 15px 20px; /* Spacing around navbar */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            position: fixed; /* Fix the navbar at the top */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Stretch to the right */
+            z-index: 1000; /* Ensure it is above other elements */
+        }
+        .navbar-container {
+            display: flex; /* Flex layout for navbar items */
+            align-items: center; /* Center items vertically */
+            max-width: 1200px; /* Max width of navbar */
+            margin: 0 auto; /* Center navbar */
+        }
+        .navbar-title {
+            color: white; /* Text color */
+            font-size: 24px; /* Font size for the title */
+            margin: 0; /* Remove margin */
+        }
+        /* Main container to stack login and sign-up text vertically */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px; /* Space for fixed navbar */
+        }
+        /* Login Box Styling */
+        .login-container {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-bottom: 10px; /* Space between login box and sign-up link */
+        }
+        /* Heading */
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        /* Error and Success Messages */
+        #error-message {
+            color: red;
+            display: none;
+        }
+        #signup-message {
+            margin-top: 15px;
+            color: green;
+            font-size: 14px;
+        }
+        #signup-message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        #signup-message a:hover {
+            text-decoration: underline;
+        }
+        /* Sign-Up Link Styling */
+        .signup-text {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+        .signup-text a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+    </style>    
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <h1 class="navbar-title">Lip Reading Text Generator</h1>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form onsubmit="validateLogin(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p id="error-message" style="color: red; display: none;">Invalid username or password</p>
+        </div>
+        <!-- Sign Up Link outside the login box -->
+        <p class="signup-text">Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </div>
+    <script>
+        const validUsername = "projectid9";
+        const validPassword = "projectid9"; 
+        function validateLogin(event) {
+            event.preventDefault(); // Prevent default form submission
+            console.log("Form submitted");
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (username === validUsername && password === validPassword) {
+                console.log("Login successful");
+                window.location.href = "video-upload.html"; // Redirect to the video upload page
+            } else {
+                console.log("Login failed");
+                document.getElementById("error-message").style.display = "block";
+            }
+        }
+    </script>
+</body></html>

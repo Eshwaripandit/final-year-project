@@ -1,0 +1,230 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Video - Generation of Text from Lip Movements</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Navbar styles */
+    .navbar {
+            background-color: #4e54c8; /* Navbar background color */
+            padding: 15px 20px; /* Spacing around navbar */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            position: fixed; /* Fix the navbar at the top */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Stretch to the right */
+            z-index: 1000; /* Ensure it is above other elements */
+        }
+        .navbar-container {
+            display: flex; /* Flex layout for navbar items */
+            align-items: center; /* Center items vertically */
+            max-width: 1200px; /* Max width of navbar */
+            margin: 0 auto; /* Center navbar */
+        }
+        .navbar-title {
+            color: white; /* Text color */
+            font-size: 24px; /* Font size for the title */
+            margin: 0; /* Remove margin */
+        }
+        /* Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #c8caf2, #e9eafb);
+            display: flex;
+            align-items: flex-start; /* Align to the start to allow for navbar */
+            justify-content: center;
+            height: 100vh;
+            color: #000000;
+            padding-top: 70px; /* Space for fixed navbar */
+        }
+        /* Container for split layout */
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1000px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        /* Left side for video upload and display */
+        .video-upload-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #e9eafb;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        /* Right side for subtitle display */
+        .subtitle-display-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            background: #c8caf2; /* Darker color for contrast */
+            border-radius: 0 12px 12px 0;
+        }
+        /* Styling for headers */
+        h1, h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        /* Video player styling */
+        #videoPlayer {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        /* Subtitle text box */
+        #subtitleText {
+            padding: 15px;
+            font-size: 18px;
+            background: #ffffff; /* Bright yellow background to stand out */
+            color: #000000; /* Dark text for readability */
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+        /* Download button styling */
+        .download-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4e54c8;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .download-button:hover {
+            background-color: #8f94fb;
+        }
+        /* File input button styling */
+        input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+            color: #000000;
+            background: rgba(255, 255, 255, 0.844);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            color: #ffffff;
+            background-color: #4e54c8;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #8f94fb;
+        }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <h1 class="navbar-title">Lip Reading Text Generator</h1>
+    </div>
+  </nav>    
+
+  <div class="container">
+    <div class="video-upload-section">
+      <h1>Upload a Video</h1>
+      <input type="file" id="videoInput" accept=".mpg,.mp4,.mov,.avi,.mkv,video/*" onchange="displayVideo()" />
+      <video id="videoPlayer" controls style="display: none;"></video>
+      <br><br>
+      <button onclick="uploadVideo()" class="download-button">Upload & Generate</button>
+    </div>      
+
+    <div class="subtitle-display-section">
+      <h2>Generated Subtitles</h2>
+      <p id="subtitleText">Subtitles will appear here...</p>
+      <button onclick="downloadSubtitle()" class="download-button">Download as .txt</button>
+    </div>
+  </div>
+
+  <script>
+    function displayVideo() {
+      const videoInput = document.getElementById("videoInput");
+      const videoPlayer = document.getElementById("videoPlayer");
+
+      if (videoInput.files && videoInput.files[0]) {
+        const videoFile = videoInput.files[0];
+        const videoURL = URL.createObjectURL(videoFile);
+        videoPlayer.src = videoURL;
+        videoPlayer.style.display = "block";
+        videoPlayer.load();
+      }
+    }
+
+    async function uploadVideo() {
+      const videoInput = document.getElementById("videoInput");
+      const subtitleText = document.getElementById("subtitleText");
+
+      if (!videoInput.files.length) {
+        alert("Please select a video file first.");
+        return;
+      }
+
+      subtitleText.textContent = "Processing subtitles...";
+
+      const formData = new FormData();
+      formData.append("video", videoInput.files[0]);
+
+      try {
+        const response = await fetch("/ajax-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          subtitleText.textContent = result.subtitles;
+        } else {
+          subtitleText.textContent = "Error: " + result.error;
+        }
+      } catch (error) {
+        subtitleText.textContent = "Request failed.";
+        console.error("Upload failed:", error);
+      }
+    }
+
+    function downloadSubtitle() {
+      const subtitleText = document.getElementById("subtitleText").textContent;
+      const blob = new Blob([subtitleText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "subtitles.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
